@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TextLezer
@@ -34,21 +35,18 @@ namespace TextLezer
                 Console.WriteLine("File not find", e);                              
             }
 
-            String[] inhoud = text.Split(' ');
+            String[] inhoud = text.Split(new Char[] {' ', ',', '.', ';'}, StringSplitOptions.RemoveEmptyEntries);
+
+            Array.Sort(inhoud, (a, b) => a.Length.CompareTo(b.Length));
 
             foreach (String word in inhoud)
             {
-                if (startsWith(word) == true)
+                if (startsWith(word) == true )
                 {
                     yield return word;
-                    //String[] ray = inhoud.Select(word.ToString).ToArray(); 
                 }
             }
-
-
-
-
-
+            Console.WriteLine(text);
         }
     }
 }
